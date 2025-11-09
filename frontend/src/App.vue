@@ -20,7 +20,7 @@
       <div class="sidebar-header">
         <div class="header-content">
           <h1 class="app-title">DashTools</h1>
-          <p class="app-subtitle">Plugin App</p>
+          <p class="app-subtitle">Tools Web Application</p>
         </div>
         <button 
           class="sidebar-close-btn"

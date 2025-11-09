@@ -1,20 +1,17 @@
 .PHONY: help build up down restart logs clean dev-backend dev-frontend test install-backend install-frontend
 
-# Default target
 .DEFAULT_GOAL := help
 
-# Variables
-COMPOSE := docker-compose
+COMPOSE := docker compose
 COMPOSE_FILE := docker-compose.yml
 BACKEND_DIR := backend
 FRONTEND_DIR := frontend
 
-# Colors for output
 GREEN := \033[0;32m
 YELLOW := \033[0;33m
-NC := \033[0m # No Color
+NC := \033[0m
 
-help: ## Show this help message
+help:
 	@echo "$(GREEN)Available commands:$(NC)"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(YELLOW)%-20s$(NC) %s\n", $$1, $$2}'
 

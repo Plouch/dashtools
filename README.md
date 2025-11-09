@@ -135,15 +135,11 @@ Edit `.env` to configure:
 3. Install dependencies:
 ```bash
 npm install
-# or
-pnpm install
 ```
 
 4. Start the development server:
 ```bash
 npm run dev
-# or
-pnpm dev
 ```
 
 The frontend will run on `http://localhost:3000` (or the port specified in `.env`)

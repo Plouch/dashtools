@@ -1,0 +1,115 @@
+/**
+ * Theme CSS variables for Rosé Pine and Everforest themes
+ */
+
+/* Rosé Pine Light */
+[data-theme="rose-pine"][data-variant="light"] {
+  --bg-base: #faf4ed;
+  --bg-surface: #fffaf3;
+  --bg-overlay: #f2e9e1;
+  --bg-muted: #f2e9e1;
+  --bg-subtle: #eaddcf;
+  
+  --fg-base: #575279;
+  --fg-surface: #6e6a86;
+  --fg-overlay: #797593;
+  --fg-muted: #9893a5;
+  --fg-subtle: #c5c3ce;
+  
+  --accent: #b4637a;
+  --accent-hover: #c17a8f;
+  --accent-active: #9d5569;
+  
+  --border: #dfdad9;
+  --border-hover: #cecacd;
+  
+  --highlight-low: #f4ede8;
+  --highlight-med: #dfdad9;
+  --highlight-high: #cecacd;
+}
+
+/* Rosé Pine Dark */
+[data-theme="rose-pine"][data-variant="dark"] {
+  --bg-base: #191724;
+  --bg-surface: #1f1d2e;
+  --bg-overlay: #26233a;
+  --bg-muted: #2a273f;
+  --bg-subtle: #393552;
+  
+  --fg-base: #e0def4;
+  --fg-surface: #e0def4;
+  --fg-overlay: #c4c7a5;
+  --fg-muted: #908caa;
+  --fg-subtle: #6e6a86;
+  
+  --accent: #eb6f92;
+  --accent-hover: #f083a2;
+  --accent-active: #d85d7a;
+  
+  --border: #403d52;
+  --border-hover: #524f67;
+  
+  --highlight-low: #21202e;
+  --highlight-med: #403d52;
+  --highlight-high: #524f67;
+}
+
+/* Everforest Light */
+[data-theme="everforest"][data-variant="light"] {
+  --bg-base: #fdf6e3;
+  --bg-surface: #fef9e7;
+  --bg-overlay: #f4f0d9;
+  --bg-muted: #e9e5d1;
+  --bg-subtle: #d3c9aa;
+  
+  --fg-base: #5c6a72;
+  --fg-surface: #5c6a72;
+  --fg-overlay: #6c7a83;
+  --fg-muted: #829181;
+  --fg-subtle: #9ca89d;
+  
+  --accent: #8fbc8f;
+  --accent-hover: #a3c9a3;
+  --accent-active: #7ba87b;
+  
+  --border: #d3c9aa;
+  --border-hover: #c4b89a;
+  
+  --highlight-low: #f0ead6;
+  --highlight-med: #d3c9aa;
+  --highlight-high: #c4b89a;
+}
+
+/* Everforest Dark */
+[data-theme="everforest"][data-variant="dark"] {
+  --bg-base: #2d353b;
+  --bg-surface: #343f44;
+  --bg-overlay: #3d484d;
+  --bg-muted: #475258;
+  --bg-subtle: #56635f;
+  
+  --fg-base: #d3c6aa;
+  --fg-surface: #d3c6aa;
+  --fg-overlay: #c7ba9d;
+  --fg-muted: #9da9a0;
+  --fg-subtle: #7f897e;
+  
+  --accent: #a7c080;
+  --accent-hover: #b5cc8f;
+  --accent-active: #95b571;
+  
+  --border: #56635f;
+  --border-hover: #647870;
+  
+  --highlight-low: #3d484d;
+  --highlight-med: #56635f;
+  --highlight-high: #647870;
+}
+
+/* Base styles using CSS variables */
+body {
+  background-color: var(--bg-base);
+  color: var(--fg-base);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+

@@ -1,7 +1,7 @@
 # Multi-stage build for combined frontend and backend
 
 # Stage 1: Build Frontend
-FROM node:20-alpine AS frontend-builder
+FROM node:20 AS frontend-builder
 
 WORKDIR /app
 
@@ -50,56 +50,56 @@ RUN echo 'server {\n\
     server_name localhost;\n\
     root /usr/share/nginx/html;\n\
     index index.html;\n\
-\n\
+    \n\
     gzip on;\n\
     gzip_vary on;\n\
     gzip_min_length 1024;\n\
     gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml+rss application/json;\n\
-\n\
+    \n\
     location / {\n\
-        try_files $uri $uri/ /index.html;\n\
+    try_files $uri $uri/ /index.html;\n\
     }\n\
-\n\
+    \n\
     location /api {\n\
-        proxy_pass http://127.0.0.1:5000;\n\
-        proxy_http_version 1.1;\n\
-        proxy_set_header Upgrade $http_upgrade;\n\
-        proxy_set_header Connection "upgrade";\n\
-        proxy_set_header Host $host;\n\
-        proxy_set_header X-Real-IP $remote_addr;\n\
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
-        proxy_set_header X-Forwarded-Proto $scheme;\n\
-        proxy_cache_bypass $http_upgrade;\n\
+    proxy_pass http://127.0.0.1:5000;\n\
+    proxy_http_version 1.1;\n\
+    proxy_set_header Upgrade $http_upgrade;\n\
+    proxy_set_header Connection "upgrade";\n\
+    proxy_set_header Host $host;\n\
+    proxy_set_header X-Real-IP $remote_addr;\n\
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\
+    proxy_set_header X-Forwarded-Proto $scheme;\n\
+    proxy_cache_bypass $http_upgrade;\n\
     }\n\
-\n\
+    \n\
     location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {\n\
-        expires 1y;\n\
-        add_header Cache-Control "public, immutable";\n\
+    expires 1y;\n\
+    add_header Cache-Control "public, immutable";\n\
     }\n\
-}' > /etc/nginx/sites-available/default && \
+    }' > /etc/nginx/sites-available/default && \
     ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Create supervisor configuration
 RUN mkdir -p /var/log/supervisor && \
     echo '[supervisord]\n\
-nodaemon=true\n\
-user=root\n\
-\n\
-[program:nginx]\n\
-command=/usr/sbin/nginx -g "daemon off;"\n\
-autostart=true\n\
-autorestart=true\n\
-stderr_logfile=/var/log/supervisor/nginx.err.log\n\
-stdout_logfile=/var/log/supervisor/nginx.out.log\n\
-\n\
-[program:backend]\n\
-command=python /app/backend/app.py\n\
-directory=/app/backend\n\
-autostart=true\n\
-autorestart=true\n\
-stderr_logfile=/var/log/supervisor/backend.err.log\n\
-stdout_logfile=/var/log/supervisor/backend.out.log\n\
-environment=PORT="5000",FLASK_HOST="0.0.0.0"' > /etc/supervisor/conf.d/supervisord.conf
+    nodaemon=true\n\
+    user=root\n\
+    \n\
+    [program:nginx]\n\
+    command=/usr/sbin/nginx -g "daemon off;"\n\
+    autostart=true\n\
+    autorestart=true\n\
+    stderr_logfile=/var/log/supervisor/nginx.err.log\n\
+    stdout_logfile=/var/log/supervisor/nginx.out.log\n\
+    \n\
+    [program:backend]\n\
+    command=python /app/backend/app.py\n\
+    directory=/app/backend\n\
+    autostart=true\n\
+    autorestart=true\n\
+    stderr_logfile=/var/log/supervisor/backend.err.log\n\
+    stdout_logfile=/var/log/supervisor/backend.out.log\n\
+    environment=PORT="5000",FLASK_HOST="0.0.0.0"' > /etc/supervisor/conf.d/supervisord.conf
 
 # Create data directory for SQLite
 RUN mkdir -p /app/data

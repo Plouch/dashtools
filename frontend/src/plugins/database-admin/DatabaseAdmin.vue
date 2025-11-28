@@ -268,7 +268,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import type { PluginMetadata } from '@/types/plugin'
 
 const metadata: PluginMetadata = {
@@ -336,7 +336,7 @@ async function fetchSchema(tableName: string) {
 
 async function loadTableData() {
   if (!selectedTable.value) return
-  
+
   try {
     const response = await fetch(
       `/api/db/tables/${selectedTable.value}/data?limit=${limit.value}&offset=${offset.value}`
@@ -375,28 +375,28 @@ async function createTable() {
       name: newTable.value.name,
       columns: validColumns
     }
-    
+
     console.log('Sending request to create table:', requestBody)
-    
+
     const response = await fetch('/api/db/tables', {
       method: 'POST',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify(requestBody)
     })
-    
+
     console.log('Response received:', {
       status: response.status,
       statusText: response.statusText,
       headers: Object.fromEntries(response.headers.entries())
     })
-    
+
     // Read response text once
     const responseText = await response.text()
     const contentType = response.headers.get('content-type')
-    
+
     // Check if response is empty
     if (!responseText || responseText.trim() === '') {
       console.error('Empty response from server:', {
@@ -407,7 +407,7 @@ async function createTable() {
       alert(`Server returned empty response (${response.status} ${response.statusText}). Check if backend is running.`)
       return
     }
-    
+
     // Check if response is JSON
     if (!contentType || !contentType.includes('application/json')) {
       console.error('Non-JSON response:', {
@@ -419,7 +419,7 @@ async function createTable() {
       alert(`Server error: ${response.status} ${response.statusText}\n${responseText.substring(0, 200)}`)
       return
     }
-    
+
     // Parse JSON
     let data
     try {
@@ -430,7 +430,7 @@ async function createTable() {
       alert(`Error parsing server response. Check console for details.\nResponse: ${responseText.substring(0, 200)}`)
       return
     }
-    
+
     if (!response.ok) {
       const errorMsg = data.error || `HTTP ${response.status}: Failed to create table`
       console.error('Error creating table:', {
@@ -442,7 +442,7 @@ async function createTable() {
       alert(`Error: ${errorMsg}`)
       return
     }
-    
+
     if (data.success) {
       showCreateTable.value = false
       newTable.value = {
@@ -1058,4 +1058,3 @@ onMounted(async () => {
   cursor: not-allowed;
 }
 </style>
-
